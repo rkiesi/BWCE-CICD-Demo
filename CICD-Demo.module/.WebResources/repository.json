@@ -1,0 +1,7 @@
+{
+    "records": [],
+    "resources": [{
+        "location": "Service Descriptors/cicd-demo.module.Hello-Hello.json",
+        "type": "generated"
+    }]
+}

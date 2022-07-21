@@ -1,0 +1,17 @@
+Manifest-Version: 1.0.0.202109131652
+Bundle-SymbolicName: CICD-Demo.module
+Bundle-ManifestVersion: 2
+TIBCO-BW-Edition: bwcf
+Bundle-Vendor: TIBCO Software Inc.
+TIBCO-BW-ModuleSharedVariables: META-INF/module.msv
+Require-Capability: com.tibco.bw.model; filter:="(name=bwext)",com.tib
+ co.bw.sharedresource.model; filter:="(name=bw.httpconnector)",com.tib
+ co.bw.binding.model; filter:="(name=bw.rest)"
+TIBCO-BW-ConfigProfile: META-INF/default.substvar
+TIBCO-BW-Version: 2.6.2 V74 2021-05-17
+Bundle-Name: CICD-Demo Module
+Bundle-Version: 1.0.0.202109131652
+Bundle-ClassPath: .
+TIBCO-BW-ApplicationModule: META-INF/module.bwm
+TIBCO-BW-JobSharedVariables: META-INF/module.jsv
+

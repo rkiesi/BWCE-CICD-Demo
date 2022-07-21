@@ -1,0 +1,44 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0",
+    "title" : "Hello",
+    "description" : "Hello service"
+  },
+  "host" : "0.0.0.0:8064",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/hello" : {
+      "get" : {
+        "summary" : "getHello",
+        "description" : "getHello",
+        "operationId" : "get-hello",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "a responseElement to be returned",
+            "schema" : {
+              "$ref" : "#/definitions/responseElement"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "responseElement" : {
+      "type" : "object",
+      "properties" : {
+        "message" : {
+          "type" : "string"
+        },
+        "currentDateTime" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

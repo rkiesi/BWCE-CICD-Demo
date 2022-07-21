@@ -1,0 +1,5 @@
+{"records": [{
+    "jsonSchemaLocation": "/CICD-Demo.module/Service Descriptors/cicd-demo.module.Hello-Hello.json",
+    "conversionType": "linked",
+    "xsdSchemaTargetNamespace": "http://tns.tibco.com/bw/json/1631531772285"
+}]}
