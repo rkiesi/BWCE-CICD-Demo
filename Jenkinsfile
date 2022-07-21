@@ -18,7 +18,8 @@ pipeline {
     stage('Build Image') {
       steps {
         echo 'Start creating container image'
-        sh 'docker build -t k3d-myregistry.localhost:12345/helloworld:latest .'
+#        sh 'docker build -t k3d-myregistry.localhost:12345/helloworld:latest .'
+        sh 'docker build -t k3d-myregistry.localhost:12345/helloworld:testing .'
       }
     }
 
