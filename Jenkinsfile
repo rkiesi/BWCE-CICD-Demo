@@ -1,5 +1,3 @@
-#        sh 'docker build -t k3d-myregistry.localhost:12345/helloworld:latest .'
-
 pipeline {
   agent any
   stages {
@@ -20,26 +18,29 @@ pipeline {
     stage('Build Image') {
       steps {
         echo 'Start creating container image'
+     // sh 'docker build -t k3d-myregistry.localhost:12345/helloworld:latest .'
         sh 'docker build -t k3d-myregistry.localhost:12345/helloworld:testing .'
       }
     }
 
-#    stage('Push Image to Registry') {
-#      steps {
-#        echo 'Pushing image to registry'
-#        sh 'docker push k3d-myregistry.localhost:12345/helloworld:latest'
-#      }
-#    }
+/*
+    stage('Push Image to Registry') {
+      steps {
+        echo 'Pushing image to registry'
+        sh 'docker push k3d-myregistry.localhost:12345/helloworld:latest'
+      }
+    }
 
-#    stage('Deploy') {
-#      steps {
-#        echo 'Deploy App on kubernetes'
-#        sh '''k3d kubeconfig get mycluster > config.yaml
-#
-#        kubectl apply -f manifest.yaml --kubeconfig=config.yaml'''
-#        echo 'Deployed successfully'
-#      }
-#    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploy App on kubernetes'
+        sh '''k3d kubeconfig get mycluster > config.yaml
+
+        kubectl apply -f manifest.yaml --kubeconfig=config.yaml'''
+        echo 'Deployed successfully'
+      }
+    }
+*/
 
   }
   tools {
