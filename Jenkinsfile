@@ -18,16 +18,15 @@ pipeline {
     stage('Build Image') {
       steps {
         echo 'Start creating container image'
-     // sh 'docker build -t k3d-myregistry.localhost:12345/helloworld:latest .'
-        sh 'docker build -t k3d-myregistry.localhost:12345/helloworld:testing .'
+        sh 'docker build -t k3d-myregistry.localhost:12345/helloworld:1.0.1 .'
+     // sh 'docker build -t k3d-myregistry.localhost:12345/helloworld:testing .'
       }
     }
 
-/*
     stage('Push Image to Registry') {
       steps {
         echo 'Pushing image to registry'
-        sh 'docker push k3d-myregistry.localhost:12345/helloworld:latest'
+        sh 'docker push k3d-myregistry.localhost:12345/helloworld:1.0.1'
       }
     }
 
@@ -36,11 +35,10 @@ pipeline {
         echo 'Deploy App on kubernetes'
         sh '''k3d kubeconfig get mycluster > config.yaml
 
-        kubectl apply -f manifest.yaml --kubeconfig=config.yaml'''
+        kubectl apply -f k8s/app-manifest.yaml --kubeconfig=config.yaml'''
         echo 'Deployed successfully'
       }
     }
-*/
 
   }
   tools {
