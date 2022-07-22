@@ -1,3 +1,5 @@
+# TIBCO BusinessWorks Container Edition - MONITOR APP
+# docs: https://docs.tibco.com/pub/bwce/2.7.2/doc/pdf/TIB_bwce_2.7.2_application_monitoring_troubleshooting.pdf?id=9
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,14 +9,17 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 8080
+  - port: 8888  # web-ui port http
     targetPort: 8080
+#  - port: 8443  # web-ui port https
+#    targetPort: 8443
   selector:
     app: bwcemon
 
 ---
 apiVersion: v1
 kind: ReplicationController
+# ensures that a specified number of pod replicas are running at any one time
 metadata:
   name: bwcemon
 spec:
@@ -29,18 +34,30 @@ spec:
     spec:
       containers:
         - name: bwcemon
-        image: k3d-myregistry.localhost:12345/bwce-mon:2.7.2
-        resources:
-          limits:
-            memory: 512Mi
-          requests:
-            memory: 512Mi
-        imagePullPolicy: Always
-        env:
-        - name: PERSISTENCE_TYPE
-          value:postgres
-        - name: DB_URL
-          value: postgres://<DB_USERNAME>:<PASSWORD>@<DB_IP>:<DB_PORT>/<DB_NAME>
-        ports:
-          - containerPort: 8080
+          image: k3d-myregistry.localhost:12345/bwce-mon:2.7.2
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              memory: 512Mi
+          imagePullPolicy: Always
+          env:
+          - name: BW_APP_MON_REGISTER_ATTEMPTS
+            value: "5"
+          - name: BW_APP_MON_REGISTER_DELAY
+            value: "3000"
+          # database is hosted externally and should be created upfront
+          #  CREATE USER 'bwcemon'@'%' IDENTIFIED WITH mysql_native_password BY 'passw0rd';
+          #  CREATE DATABASE IF NOT EXISTS bwcemon CHARACTER SET utf-8mb4;
+          #  GRANT ALL PRIVILEGES ON bwcemon.* TO 'bwcemon'@'%' WITH GRANT OPTION;
+          # check:
+          #  SELECT user,authentication_string,plugin,host FROM mysql.user;
+          # reason: node.js mqsldb module is not yet capable of using the newer MySQL authentication method!
+          #  listed plugin must be mysql_native_password!
+          - name: PERSISTENCE_TYPE
+            value: "mysql"
+          - name: DB_URL
+            value: "mysql://bwcemon:passw0rd@172.31.1.204:3306/bwcemon"
+          ports:
+            - containerPort: 8888
 
