@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: hello-bwce
-        image: k3d-myregistry.localhost:12345/helloworld:1.0.4
+        image: k3d-myregistry.localhost:12345/helloworld:1.0.5
         resources:
           requests:
             memory: "256Mi"
