@@ -18,7 +18,12 @@ The demo uses Jenkins with BlueOcean plugin to automate the (build and deploymen
 In order to package the resulting application as Docker image a build description in form of the *Dockerfile* is required.
 
 
-## How to check auto created docker images?
+## How to Run an BW Application as Container?
+
+On a Kubernetes runtime a description for a POD or better a deployment is required to instruct Kubernetes on how to host the application (which images, ports, pod count etc). Therefore an application manifest YAML file is also part of the project to allow for an atomated deployment right after building a new application image.
+
+
+## How to check auto for created docker images?
 
 To check if the build pipline worked as expected one can first check the docker build environment. The local docker registry should include a docker image with the respective version just built. As second step this image must have been pushed to the Docker repository used by Rancher/K3s to start the application. As we are using the simple Docker registry implementation provided by docker we need to use the API to get the details on what's available.
 
@@ -62,6 +67,8 @@ curl -s http://localhost:12345/v2/helloworld/tags/list | jq "."
 
 For moore details on the docker rgistry API see [Docker Registry HTTP API V2](https://docs.docker.com/registry/spec/api/).
 
-## How to Run an BW Application as Container?
 
-On a Kubernetes runtime a description for a POD or better a deployment is required to instruct Kubernetes on how to host the application (which images, ports, pod count etc). Therefore an application manifest YAML file is also part of the project to allow for an atomated deployment right after building a new application image.
+## Local Docker Registry Maintenance
+
+A local Docker registry started from the offical provided registry implementation would require more detailed configurazion than just startin the image as unsecured (no TLS) unauthenticated service. More details on configuration, espacially on how to enable deletion of stored layer-blobs by there digest value from docker image manifests is documented on the official Docker docs pages [Deploy a registry server](https://docs.docker.com/registry/deploying/).
+A nice summary article explaining the reasons and to do's is [How to Delete Images From a Private Docker Registry](https://azizunsal.github.io/blog/post/delete-images-from-private-docker-registry/).
