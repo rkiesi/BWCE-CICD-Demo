@@ -42,6 +42,7 @@ pipeline {
 
   }
   tools {
+    // How to configure maven in Jenkins? -> https://www.youtube.com/watch?v=V-VFrYF_Z1Y
     maven 'maven382'
   }
 }
